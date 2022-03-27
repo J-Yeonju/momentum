@@ -1,11 +1,15 @@
+const { json } = require("express/lib/response");
+
 const toDoForm = document.getElementById("todo-form");
 const toDoList = document.getElementById("todo-list");
 const toDoList = document.getElementById("todo-list");
 
+const TODOS_KEY = "todos";
+
 const toDos = [];
 
 function saveToDos() {
-    localStorage.setItem("todos", JSON.stringify(toDos));
+    localStorage.setItem(TODOS_KEY, JSON.stringify(toDos));
 }
 
 function deleteToDo(event) {
@@ -35,3 +39,10 @@ function handleToDoSubmit(event) {
 }
 
 toDoForm.addEventListener("submit", handleToDoSubmit);
+
+const saveToDos = localStorage.getItem(TODOS_KEY);
+
+if (saveToDos !== null) {
+    const parsedToCos = JSON.parse(saveToDos);
+    parsedToCos.forEach((item) => console.log("this is the turn of ", item));
+}
